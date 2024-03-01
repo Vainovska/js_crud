@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../src/container/success-info/style.scss"
+  ],
+  "names": [],
+  "mappings": "AACA;EACE;EACA;EACA;EACA;;AACA;EACE;EACA;EACA;EACA;;AAEF;EACE;EACA;;AAEF;EACE;EACA;EACA;;AAEF;EACE;;AAEF;EACE;EACA;;AAEF;EACE;EACA;EACA;;;AAGJ;EACE;EACA;EACA",
+  "file": "style.css"
+}
