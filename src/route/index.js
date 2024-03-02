@@ -18,9 +18,8 @@ class User {
   static add = (user) => {
     this.#list.push(user)
   }
-  static getList = () => {
-    this.#list
-  }
+  static getList = () => this.#list
+
   static getById = (id) => {
     this.#list.find((user) => user.id === id)
   }
@@ -104,12 +103,12 @@ router.get('/user-delete', function (req, res) {
 // ================================================================
 router.post('/user-update', function (req, res) {
   const { email, password, id } = req.body
-  console.log(email, password, id)
   let result = false
   const user = User.getById(Number(id))
+
   if (user.verfyPassword(password)) {
-    User.update(user, { email })
     result = true
+    User.update(user, { email })
   }
 
   // ↙️ cюди вводимо назву файлу з сontainer
