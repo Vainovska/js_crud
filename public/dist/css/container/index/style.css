@@ -38,4 +38,10 @@ main {
   gap: 40px;
 }
 
+.user-list {
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 /*# sourceMappingURL=style.css.map */
