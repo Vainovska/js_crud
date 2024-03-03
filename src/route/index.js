@@ -107,8 +107,8 @@ router.post('/user-update', function (req, res) {
   const user = User.getById(Number(id))
 
   if (user.verfyPassword(password)) {
-    result = true
     User.update(user, { email })
+    result = true
   }
 
   // ↙️ cюди вводимо назву файлу з сontainer
