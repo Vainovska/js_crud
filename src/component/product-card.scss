@@ -1,0 +1,32 @@
+@use '../../lib/service.scss' as s;
+.product-card {
+  display: flex;
+  flex-direction: column;
+  padding: s.space(4);
+  gap: s.space(8);
+  border: 1px solid s.color('light');
+  border-radius: 20px;
+  box-shadow: 8px 0px 5px 2px s.color('light');
+  &__title {
+    font-size: 28px;
+    font-weight: bold;
+    padding-bottom: s.space(3);
+  }
+  &__description {
+    font-size: 18px;
+    padding-bottom: s.space(3);
+  }
+  &__id {
+    font-size: 18px;
+    padding-bottom: s.space(3);
+    color: rgb(65, 63, 63);
+  }
+  &__price {
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: s.space(3);
+  }
+  &__edit {
+    text-decoration: none;
+  }
+}
