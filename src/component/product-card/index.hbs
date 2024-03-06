@@ -1,0 +1,29 @@
+<div class='product-card'>
+  {{#with data}}
+    {{#if isEmpty}}
+      <mark>Список пустий</mark>
+    {{else}}
+      <ul>
+        {{#each list}}
+          <li>
+            <h4
+              class='product-card__title'
+            >{{this.name}}</h4>
+            <p
+              class='product-card__description'
+            >{{this.description}}</p>
+            <div class='product-card__id'>ID:
+              {{this.id}}</div>
+            <div
+              class='product-card__price'
+            >{{this.prise}}</div>
+
+            <a
+              href='/user-edit?id={{id}}'
+              class='product-card__edit'
+            >Редагувати</a></li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  {{/with}}
+</div>
