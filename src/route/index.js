@@ -192,8 +192,8 @@ router.get('/product-create', function (req, res) {
 })
 // ================================================================
 router.post('/product-create', function (req, res) {
-  const { name, price, description } = req.body
-  const product = new Product(name, price, description)
+  const { name, price, description, id } = req.body
+  const product = new Product(name, price, description, id)
   Product.add(product)
   console.log(Product.getList())
   // ↙️ cюди вводимо назву файлу з сontainer
