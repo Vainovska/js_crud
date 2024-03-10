@@ -1,7 +1,31 @@
 <main>
-  <h1>Список товарів</h1>
+  <h1 class='title'>Список товарів</h1>
   <section>
-    {{ > product-card data = data.products}}
+    {{#with data.products}}
+      {{#if isEmpty}}
+        <mark>Список пустий</mark>
+      {{else}}
+        <ul class='card'>
+          {{#each list}}
+            <li class='product-card'>
+              <h4 class='product-card__title'>{{name}}</h4>
+              <p
+                class='product-card__description'
+              >{{description}}</p>
+              <div class='product-card__id'>ID:
+                {{id}}</div>
+              <div
+                class='product-card__price'
+              >Ціна:{{price}}грн</div>
+
+              <a
+                href='/product-edit?id={{id}}'
+                class='product-card__edit'
+              >Редагувати</a></li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    {{/with}}
   </section>
 
 </main>

@@ -4,55 +4,11 @@ const express = require('express')
 const router = express.Router()
 
 // ================================================================
-class User {
-  static #list = []
 
-  constructor(email, login, password) {
-    this.email = email
-    this.login = login
-    this.password = password
-    this.id = new Date().getTime()
-  }
-  verfyPassword = (password) => this.password === password
-
-  static add = (user) => {
-    this.#list.push(user)
-  }
-  static getList = () => this.#list
-
-  static getById = (id) => {
-    this.#list.find((user) => user.id === id)
-  }
-  static getDeleteById = (id) => {
-    const index = this.#list.findIndex(
-      (user) => user.id === id,
-    )
-    if (index !== -1) {
-      this.#list.splice(index, 1)
-      return true
-    } else {
-      return false
-    }
-  }
-  static getUpdateById = (id, data) => {
-    const user = this.getById(id)
-    if (user) {
-      this.update(user, data)
-      return true
-    } else {
-      return false
-    }
-  }
-  static update = (user, { email }) => {
-    if (email) {
-      user.email = email
-    }
-  }
-}
 class Product {
   static #list = []
-  constructor(id, createDate, name, price, description) {
-    this.id = id
+  constructor(name, price, description, createDate) {
+    this.id = Product.#list.length + 1
     this.createDate = createDate
     this.name = name
     this.price = price
@@ -109,16 +65,14 @@ class Product {
 // ↙️ тут вводимо шлях (PATH) до сторінки
 router.get('/', function (req, res) {
   // res.render генерує нам HTML сторінку
-  const list = User.getList()
   // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('index', {
+  res.render('alert', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'index',
+    style: 'alert',
     data: {
-      users: {
-        list,
-        isEmpty: list.length === 0,
-      },
+      message: 'Операція успішна',
+      info: 'Товар створенний',
+      link: '/product-list',
     },
   })
 
@@ -126,52 +80,7 @@ router.get('/', function (req, res) {
 })
 
 // ================================================================
-router.post('/user-create', function (req, res) {
-  const { email, login, password } = req.body
-  const user = new User(email, login, password)
-  User.add(user)
-  console.log(User.getList())
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('success-info', {
-    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'success-info',
-    info: 'Користувач створенний',
-  })
-  // ↑↑ сюди вводимо JSON дані
-})
-// ================================================================
-router.get('/user-delete', function (req, res) {
-  const { id } = req.query
-  console.log(id)
-  User.getDeleteById(Number(id))
 
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('success-info', {
-    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'success-info',
-    info: 'Користувача видалено',
-  })
-  // ↑↑ сюди вводимо JSON дані
-})
-// ================================================================
-router.post('/user-update', function (req, res) {
-  const { email, password, id } = req.body
-  let result = false
-  const user = User.getById(Number(id))
-
-  if (user.verfyPassword(password)) {
-    User.update(user, { email })
-    result = true
-  }
-
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('success-info', {
-    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'success-info',
-    info: result ? 'Email оновлено' : 'Сталась помилка',
-  })
-  // ↑↑ сюди вводимо JSON дані
-})
 //==================================================================
 router.get('/product-create', function (req, res) {
   // res.render генерує нам HTML сторінку
@@ -200,13 +109,18 @@ router.post('/product-create', function (req, res) {
   res.render('alert', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
     style: 'alert',
-    info: 'Успішно створенний',
+    data: {
+      message: 'Операція успішна',
+      info: 'Товар створенний',
+      link: '/product-list',
+    },
   })
   // ↑↑ сюди вводимо JSON дані
 })
 //================================================================
 router.get('/product-list', function (req, res) {
   let list = Product.getList()
+
   // ↙️ cюди вводимо назву файлу з сontainer
   res.render('product-list', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
@@ -225,16 +139,20 @@ router.get('/product-edit', function (req, res) {
   const { id } = req.query
   console.log(id)
   const product = Product.getById(Number(id))
+  console.log(product)
   let result = false
   if (product) {
     result = true
   }
 
   // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('alert', {
+  res.render('product-edit', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'alert',
-    info: result ? 'Данні оновлено' : 'Сталась помилка',
+    style: 'product-edit',
+    data: {
+      product,
+      info: result ? 'Данні оновлено' : 'Сталась помилка',
+    },
   })
   // ↑↑ сюди вводимо JSON дані
 })
@@ -249,6 +167,7 @@ router.post('/product-edit', function (req, res) {
       name,
       description,
       price,
+      id,
     })
     result = true
   }
@@ -271,7 +190,11 @@ router.get('/product-delete', function (req, res) {
   res.render('alert', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
     style: 'alert',
-    info: 'Товар видалено',
+    data: {
+      message: 'Операція успішна',
+      info: 'Товар видалено',
+      link: '/product-list',
+    },
   })
   // ↑↑ сюди вводимо JSON дані
 })
