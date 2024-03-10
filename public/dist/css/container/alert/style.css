@@ -1,4 +1,4 @@
-.form {
+.card {
   display: flex;
   flex-direction: column;
   padding: 16px;
@@ -7,17 +7,22 @@
   border-radius: 20px;
   box-shadow: 8px 0px 5px 2px #ddd;
 }
-.form__title {
-  font-size: 20px;
-  font-weight: bold;
-  padding-bottom: 12px;
-}
-.form__content {
+.card__header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
-.form__button {
+.card__title {
+  font-size: 22px;
+  font-weight: bold;
+  padding-bottom: 12px;
+}
+.card__description {
+  font-size: 18px;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.card__button {
   display: flex;
   justify-content: center;
   border: 1px solid #ddd;

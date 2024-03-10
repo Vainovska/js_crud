@@ -1,19 +1,10 @@
-<main>
-  <section>
-    <div class='form'>
-      <form class='form__content'>
-        <div>
-          <h1 class='form__title'>Успішне виконання дії</h1>
-          <div>{{info}}</div>
-        </div>
-        <div><a
-            href='/product-list'
-            class='form__button'
-          >Повернутися назад</a></div>
-
-      </form>
-    </div>
-
-  </section>
-
-</main>
+<div class='card'>
+  <div class='card__header'>
+    <h2 class='card__title'>{{data.message}}</h2>
+    <h3 class='card__description'>{{data.info}}</h3>
+    <a
+      href='{{data.link}}'
+      class='card__button card__button--blue'
+    >Повернутися назад</a>
+  </div>
+</div>
