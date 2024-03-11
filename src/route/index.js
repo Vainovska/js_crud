@@ -139,7 +139,6 @@ router.get('/product-edit', function (req, res) {
   const { id } = req.query
   console.log(id)
   const product = Product.getById(Number(id))
-  console.log(product)
   let result = false
   if (product) {
     result = true
