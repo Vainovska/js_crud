@@ -138,7 +138,11 @@ router.get('/product-list', function (req, res) {
 router.get('/product-edit', function (req, res) {
   const { id } = req.query
   console.log(id)
-  let product = Product.getById(Number(id))
+  const product = Product.getById(Number(id))
+  let result = false
+  if (product) {
+    result = true
+  }
 
   // ↙️ cюди вводимо назву файлу з сontainer
   res.render('product-edit', {
