@@ -18,10 +18,9 @@
                 class='product-card__price'
               >Ціна:{{price}}грн</div>
 
-              <a
-                href='/product-edit?id={{id}}'
-                class='product-card__edit'
-              >Редагувати</a></li>
+              <button class='product-card__edit'><a
+                  href='/product-edit?id={{id}}'
+                >Редагувати</a></button></li>
           {{/each}}
         </ul>
       {{/if}}

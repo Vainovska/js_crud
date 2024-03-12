@@ -8,7 +8,12 @@ const router = express.Router()
 class Product {
   static #list = []
   constructor(name, price, description, createDate) {
-    this.id = Product.#list.length + 1
+    this.id = function getRandomId(min, max) {
+      return (
+        Math.floor(Math.random() * (99999 - 10000)) + 10000
+      )
+    }
+
     this.createDate = createDate
     this.name = name
     this.price = price
@@ -18,34 +23,28 @@ class Product {
   static add = (product) => {
     this.#list.push(product)
   }
-  static getById = (id) => {
+  static getById = (id) =>
     this.#list.find((product) => product.id === id)
-  }
+
   static getUpdateById = (id, data) => {
     const product = this.getById(id)
+    const { name, price, description } = data
     if (product) {
-      this.update(product, data)
+      if (name) {
+        product.name = name
+      }
+      if (price) {
+        product.price = price
+      }
+      if (description) {
+        product.description = description
+      }
       return true
     } else {
       return false
     }
   }
-  static update = (
-    product,
-    { name },
-    { price },
-    { description },
-  ) => {
-    if (name) {
-      product.name = name
-    }
-    if (price) {
-      product.price = price
-    }
-    if (description) {
-      product.description = description
-    }
-  }
+
   static getDeleteById = (id) => {
     const index = this.#list.findIndex(
       (product) => product.id === id,
@@ -137,46 +136,68 @@ router.get('/product-list', function (req, res) {
 //==================================================
 router.get('/product-edit', function (req, res) {
   const { id } = req.query
-  console.log(id)
   const product = Product.getById(Number(id))
-  let result = false
   if (product) {
-    result = true
+    res.render('product-edit', {
+      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+      style: 'product-edit',
+      data: {
+        name: product.name,
+        price: product.price,
+        id: product.id,
+        description: product.description,
+      },
+    })
+  } else {
+    res.render('alert', {
+      style: 'alert',
+      data: {
+        message: 'Сталась помилка',
+        link: '/product-list',
+        info: 'Продукт з таким ID не знайденно',
+      },
+    })
   }
 
   // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('product-edit', {
-    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'product-edit',
-    data: {
-      product,
-      info: result ? 'Данні оновлено' : 'Сталась помилка',
-    },
-  })
+
   // ↑↑ сюди вводимо JSON дані
 })
 //==================================================
 router.post('/product-edit', function (req, res) {
-  const { name, description, id, price } = req.body
+  const { id, name, description, price } = req.body
   let result = false
-  const product = Product.getById(Number(id))
-
-  if (product.id) {
-    Product.update(product, {
-      name,
-      description,
-      price,
-      id,
-    })
-    result = true
-  }
-
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('alert', {
-    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'alert',
-    info: result ? 'Данні оновлено' : 'Сталась помилка',
+  const product = Product.getUpdateById(Number(id), {
+    name,
+    price,
+    description,
   })
+  console.log(id)
+  console.log(product)
+
+  if (product) {
+    res.render('alert', {
+      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+      style: 'alert',
+      data: {
+        message: 'Операція успішна',
+        info: 'Інформація про товар оновлена',
+        link: '/product-list',
+      },
+    })
+  } else {
+    res.render('alert', {
+      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+      style: 'alert',
+      data: {
+        message: 'Сталась помилка',
+        info: 'Інформація про товар не оновлена',
+        link: '/product-list',
+      },
+    })
+  }
+  // ↙️ cюди вводимо назву файлу з сontainer
+
   // ↑↑ сюди вводимо JSON дані
 })
 // ================================================================
