@@ -1,0 +1,27 @@
+<main class="main">
+  <h1 class="title">Мої замовлення</h1>
+  <section>
+    {{#with data.products}}
+      {{#if isEmpty}}
+        <mark>Список пустий</mark>
+      {{else}}
+        <ul class='purchase-list'>
+          {{#each list}}
+            <li>
+              <button>
+              <a href="/purchase-edit?id={{id}}"class='purchase-list__item' >
+                <div class="purchase-list__id">ID: {{id}}</div>
+              {{>field label='Товар' name='product.title' value=product.title}}
+              {{>field label='Сума замовлення' name='totalPrice' value=totalPrice}}
+              {{>field label='Нараховані бонуси' name='bonus' value=bonus}}
+              </a></button>
+              
+              </li>
+              {{>divider}}
+          {{/each}}
+        </ul>
+      {{/if}}
+    {{/with}}
+  </section>
+
+</main></main>

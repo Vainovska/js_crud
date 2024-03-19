@@ -1,0 +1,45 @@
+<main>
+  <section>
+    <div class='form'>
+      {{#with data}}
+        <form method="post" action="/purchase-update?id={{id}}">
+          <h1 class='title'>Інформація про замовлення</h1>
+          <div class='form__content'>
+            <div class="form__item">
+            {{>field label='ID:' name='id' value=id}}
+            
+            </div>
+            {{>divider}}
+            <div class="form__item">
+            {{>field label='Ім`я' name='firstname' value=firstname}}
+            {{>field label='Прізвище' name='lastname' value=lastname}}
+            {{>field label='Телефон' name='phone' value=phone}}
+            {{>field label='Електрона пощта' name='email' value=email}}
+            
+            </div>
+            {{>divider}}
+            <div class="form__item">
+            {{>field label='Назва товару' name='product.title' value=product.title}}
+            {{>field label='Коментар' name='comment' value=comment}}
+            
+            </div>
+            {{>divider}}
+            <div class="form__item">
+            {{>field label='Вартість товару' name='productPrice' value=productPrice}}
+            {{>field label='Вартість доставки' name='deliveryPrice' value=deliveryPrice}}
+            {{>field label='Сума до сплати' name='totalPrice' value=totalPrice}}
+            {{>field label='Бонуси' name='bonus' value=bonus}}
+            
+            </div>
+            {{>divider}}
+            {{>button  text='Змінити дані'}}
+
+          </div>
+
+        </form>
+      {{/with}}
+    </div>
+
+  </section>
+
+</main>

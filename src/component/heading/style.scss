@@ -1,0 +1,13 @@
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  &__title {
+    font-size: 24px;
+    color: black;
+  }
+  &__info {
+    font-size: 16px;
+    color: black;
+  }
+}

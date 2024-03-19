@@ -1,0 +1,38 @@
+@use '../../lib/service.scss' as s;
+@use '../../component/heading/style.scss' as heading;
+@use '../../component/purchase-product/style.scss' as
+  purchaseProduct;
+@use '../../component/field/style.scss' as field;
+@use '../../component/divider/style.scss' as divider;
+@use '../../component/button/style.scss' as button;
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: s.space(10);
+  padding: s.space(10);
+}
+.title {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 40px;
+  color: blue;
+  padding-bottom: s.space(8);
+}
+.purchase-list__item {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: s.space(3);
+  text-decoration: none;
+  color: black;
+}
+.purchase-list__id {
+  font-size: 16px;
+  color: s.color(dark);
+}
+.field__input {
+  border: none;
+}
+.field__label {
+  font-size: 16px;
+  color: s.color(dark);
+}
