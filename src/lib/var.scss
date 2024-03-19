@@ -1,5 +1,8 @@
 $colorMap: (
   light: #ddd,
+  main: blue,
+  dark: rgba(54, 62, 85, 0.797),
+  bordes: rgba(105, 106, 108, 0.977),
 );
 @function color($key) {
   @return map-get($colorMap, $key);
