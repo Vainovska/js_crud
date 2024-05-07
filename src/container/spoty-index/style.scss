@@ -1,0 +1,24 @@
+@use '../../lib/service.scss' as s;
+
+@use '../../lib/spoty.scss' as spoty;
+
+.playlist__card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: s.space(5);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid s.color(bordes);
+  border-radius: 6px;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: s.space(3);
+  padding: s.space(2);
+}
+.card-title {
+  font-size: 24px;
+}

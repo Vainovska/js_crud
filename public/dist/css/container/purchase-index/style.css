@@ -31,12 +31,13 @@
 }
 .product-card__subtitle {
   font-size: 16px;
+  color: #bdbdbd;
 }
 .product-card__category {
   padding: 5px 10px;
   border-radius: 30px;
   font-size: 14px;
-  color: rgba(54, 62, 85, 0.797);
+  color: #121212;
   border: 1px solid transparent;
 }
 .product-card__category--1 {
