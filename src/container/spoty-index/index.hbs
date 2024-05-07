@@ -1,0 +1,33 @@
+<main class='main'>
+  {{#with data}}
+    <div class='main__content'>
+      <header class='main--header'>
+        <h1 class='title'>Моя бібліотека</h1>
+        <a href='/spoty-chose' class='add-button'>
+          <img src='/svg/add_button.svg' />
+        </a>
+        <a href='/spoty-search' class='add-button'>
+          <img src='/svg/spoty_search.svg' />
+        </a>
+      </header>
+      <ul class='playlist__card'>
+        {{#each list}}
+          <li class='card'>
+            <img
+              class='card-img-top'
+              src='{{image}}'
+              alt='{{name}}'
+            />
+            <div class='card-body'>
+              <strong class='card-title'>{{name}}</strong>
+              <span class='card-text'>Кількість пісень:
+                {{amount}}</span>
+            </div>
+
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+  {{/with}}
+</main>
