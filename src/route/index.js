@@ -91,11 +91,7 @@ class PlayList {
       (track) => track.id !== trackID,
     )
   }
-  addTrackById(trackID) {
-    this.tracks = this.tracks.filter(
-      (track) => track.id !== trackID,
-    )
-  }
+
   static findListByValue(name) {
     return this.#list.filter((playlist) =>
       playlist.name
@@ -209,20 +205,6 @@ router.get('/spoty-playlist', function (req, res) {
     },
   })
 })
-router.get('/spoty-playlist-add', function (req, res) {
-  const id = Number(req.query.plalistId)
-  const playlist = Track.getList()
-
-  res.render('spoty-playlist-add', {
-    style: 'spoty-playlist-add',
-    data: {
-      plalistId: playlist.id,
-      tracks: playlist.tracks,
-      name: playlist.name,
-    },
-  })
-})
-
 router.get('spoty-track-delete', function (req, res) {
   const plalistId = Number(req.query.plalistId)
   const trackID = Number(req.query.trackID)
@@ -238,12 +220,46 @@ router.get('spoty-track-delete', function (req, res) {
     },
   })
 })
-router.get('spoty-track-add', function (req, res) {
-  const plalistId = Number(req.query.plalistId)
-  const trackID = Number(req.query.trackID)
+router.get('/spoty-playlist-add', function (req, res) {
+  const plalistId = Number(req.query.playlistId)
   const playlist = PlayList.getById(plalistId)
-
-  playlist.addTrackById(trackID)
+  const allTracks = Track.getList()
+  res.render('spoty-playlist-add', {
+    style: 'spoty-playlist-add',
+    data: {
+      plalistId: playlist.id,
+      tracks: allTracks,
+    },
+  })
+})
+router.post('/spoty-playlist-add', function (req, res) {
+  const playlistId = Number(req.body.playlistId)
+  const trackId = Number(req.body.trackId)
+  const playlist = PlayList.getById(playlistId)
+  if (!playlist) {
+    return res.render('alert', {
+      style: 'alert',
+      data: {
+        message: 'Помилка',
+        info: 'Такого плейліста не знайдено',
+        link: `/spoty-playlist?id=${playlistId}`,
+      },
+    })
+  }
+  const trackToAdd = Track.getList().find(
+    (track) => track.id === trackId,
+  )
+  if (!trackToAdd) {
+    return res.render('alert', {
+      style: 'alert',
+      data: {
+        message: 'Помилка',
+        info: 'Такого треку не знайдено',
+        link: `/spoty-playlist-add?playlistId=${playlistId}`,
+      },
+    })
+  }
+  playlist.tracks.push(trackToAdd)
   res.render('spoty-playlist', {
     style: 'spoty-playlist',
     data: {
@@ -253,6 +269,7 @@ router.get('spoty-track-add', function (req, res) {
     },
   })
 })
+
 router.get('/spoty-search', function (req, res) {
   const value = ''
   const list = PlayList.findListByValue(value)
