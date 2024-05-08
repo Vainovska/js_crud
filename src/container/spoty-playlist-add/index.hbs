@@ -3,18 +3,20 @@
     <div class='main__content'>
       <h1 class='title title--center'>Додати до плейлиста</h1>
       <ul class='track__list'>
-        {{#each traks}}
+        {{#each tracks}}
           <li class='track'>
             <img src='{{image}}' alt='{{name}}' />
             <div class='track__content'>
               <strong class='track__name'>{{name}}</strong>
               <em class='track__author'>{{author}}</em>
             </div>
-            <a
-              href='/spoty-track-add?playlistId={{plalistId}}&trackId={{id}}'
-            >
-              <img src='/svg/add_button.svg' />
-            </a>
+            <form action="/spoty-playlist-add" method="post">
+            <input type="hidden" name="playlistId" value="{{../playlistId}}">
+            <input type="hidden" name="trackId" value="{{id}}">
+            <button type="submit">
+              <img src="/svg/add_button.svg"/>
+            </button>
+            </form>
           </li>
         {{/each}}
       </ul>
