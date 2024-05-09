@@ -221,13 +221,13 @@ router.get('spoty-track-delete', function (req, res) {
   })
 })
 router.get('/spoty-playlist-add', function (req, res) {
-  const plalistId = Number(req.query.playlistId)
-  const playlist = PlayList.getById(plalistId)
+  const playlistId = Number(req.query.playlistId)
+  const playlist = PlayList.getById(playlistId)
   const allTracks = Track.getList()
   res.render('spoty-playlist-add', {
     style: 'spoty-playlist-add',
     data: {
-      plalistId: playlist.id,
+      playlistId: playlist.id,
       tracks: allTracks,
     },
   })
@@ -263,7 +263,7 @@ router.post('/spoty-playlist-add', function (req, res) {
   res.render('spoty-playlist', {
     style: 'spoty-playlist',
     data: {
-      plalistId: playlist.id,
+      playlistId: playlist.id,
       tracks: playlist.tracks,
       name: playlist.name,
     },
